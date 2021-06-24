@@ -15,14 +15,7 @@ export default function Mole(props: MoleProps) {
 
   return Button({
     ...rest,
-    style: {
-      width: 48,
-      height: 48,
-      borderStyle: 'solid',
-      borderRadius: '100%',
-      borderColor: active ? 'green' : 'grey',
-      backgroundColor: active ? 'green' : 'grey',
-    },
+    className: `mole ${active && 'active'}`,
     onClick: whack,
   });
 }

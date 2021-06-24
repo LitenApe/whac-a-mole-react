@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import randomInt from '../utils/randomInt';
 import Button from './Button';
+import Container from './Container';
 import Mole from './Mole';
+import Statistics from './Statistics';
 
 export enum ClickEvent {
   ESCAPED,
@@ -56,44 +58,25 @@ export default function Game() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <>
-      <Button
-        style={{
-          display: playing ? 'none' : 'initial',
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          width: 80,
-          height: 80,
-          borderRadius: 8,
-          borderStyle: 'solid',
-        }}
-        onClick={() => {
+  return Container({
+    children: [
+      Button({
+        key: 'start-btn',
+        className: `start-btn ${playing && 'hidden'}`,
+        children: 'Start',
+        onClick: () => {
           setPlaying(() => true);
           prepareNextMole();
-        }}
-      >
-        Start
-      </Button>
-      <div className="grid" style={{ width: 150, margin: 'auto' }}>
-        {Array.from({ length: 9 }, (_, i) =>
+        },
+      }),
+      Container({
+        key: 'game-container',
+        className: 'grid',
+        children: Array.from({ length: 9 }, (_, i) =>
           Mole({ onClick, key: `mole-${i}`, active: active === i })
-        )}
-      </div>
-
-      <table>
-        <tbody>
-          <tr>
-            <td>Hit</td>
-            <td>{accuracy.hit}</td>
-          </tr>
-          <tr>
-            <td>Miss</td>
-            <td>{accuracy.miss}</td>
-          </tr>
-        </tbody>
-      </table>
-    </>
-  );
+        ),
+      }),
+      Statistics({ accuracy, key: 'statistics' }),
+    ],
+  });
 }
