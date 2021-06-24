@@ -16,8 +16,8 @@ export default function Mole(props: MoleProps) {
   return Button({
     ...rest,
     style: {
-      width: 50,
-      height: 50,
+      width: 48,
+      height: 48,
       borderStyle: 'solid',
       borderRadius: '100%',
       borderColor: active ? 'green' : 'grey',

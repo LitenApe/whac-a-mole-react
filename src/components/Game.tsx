@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import randomInt from '../utils/randomInt';
+import Button from './Button';
 import Mole from './Mole';
 
 export enum ClickEvent {
@@ -8,6 +9,7 @@ export enum ClickEvent {
 }
 
 export default function Game() {
+  const [playing, setPlaying] = useState(false);
   const [active, setActive] = useState(-1);
   const [accuracy, setAccuracy] = useState({ hit: 0, miss: 0 });
 
@@ -56,9 +58,29 @@ export default function Game() {
 
   return (
     <>
-      {Array.from({ length: 9 }, (_, i) =>
-        Mole({ onClick, key: i, active: active === i })
-      )}
+      <Button
+        style={{
+          display: playing ? 'none' : 'initial',
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          width: 80,
+          height: 80,
+          borderRadius: 8,
+          borderStyle: 'solid',
+        }}
+        onClick={() => {
+          setPlaying(() => true);
+          prepareNextMole();
+        }}
+      >
+        Start
+      </Button>
+      <div className="grid" style={{ width: 150, margin: 'auto' }}>
+        {Array.from({ length: 9 }, (_, i) =>
+          Mole({ onClick, key: `mole-${i}`, active: active === i })
+        )}
+      </div>
 
       <table>
         <tbody>
