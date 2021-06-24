@@ -15,13 +15,12 @@ export default function Game() {
   const [active, setActive] = useState(-1);
   const [accuracy, setAccuracy] = useState({ hit: 0, miss: 0 });
 
-  const prepareNextMole = useCallback(() => {
+  function prepareNextMole() {
     setTimeout(() => {
       const next = randomInt(0, 9);
       setActive(() => next);
     }, 3000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
