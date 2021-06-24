@@ -59,6 +59,7 @@ export default function Game() {
   }, []);
 
   return Container({
+    as: 'section',
     children: [
       Button({
         key: 'start-btn',

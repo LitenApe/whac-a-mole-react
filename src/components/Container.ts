@@ -1,5 +1,9 @@
-import { ComponentProps, createElement } from 'react';
+import { createElement } from 'react';
+import { DynamicProps, HTMLTags } from '../utils/DynamicProps';
 
-export default function Container(props: ComponentProps<'div'>) {
-  return createElement('div', props);
+export default function Container<T extends HTMLTags = 'div'>(
+  props: DynamicProps<T>
+) {
+  const { as = 'div', ...rest } = props;
+  return createElement(as, rest);
 }
