@@ -1,3 +1,4 @@
+import { createElement } from 'react';
 import Button, { ButtonProps } from './Button';
 import { ClickEvent } from './Game';
 
@@ -13,7 +14,7 @@ export default function Mole(props: MoleProps) {
     onClick(active ? ClickEvent.WHACKED : ClickEvent.ESCAPED);
   }
 
-  return Button({
+  return createElement(Button, {
     ...rest,
     className: `mole ${active && 'active'}`,
     onClick: whack,
