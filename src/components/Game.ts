@@ -3,6 +3,7 @@ import {
   Fragment,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 import randomInt from '../utils/randomInt';
@@ -20,10 +21,17 @@ export default function Game() {
   const [playing, setPlaying] = useState(false);
   const [active, setActive] = useState(-1);
   const [accuracy, setAccuracy] = useState({ hit: 0, miss: 0 });
+  const makeshiftState = useRef(false);
 
   function prepareNextMole() {
+    if (makeshiftState.current === true) {
+      return;
+    }
+
+    makeshiftState.current = true;
     setTimeout(() => {
       const next = randomInt(0, 9);
+      makeshiftState.current = false;
       setActive(() => next);
     }, 3000);
   }
